@@ -1,8 +1,8 @@
-# ContextStausAPI
+# ContextStatusAPI
 
 API to Manage Context Status on Lorien. Used to create, update, read and delete Context Status.
 
-## Phase Product Data Format
+## Context Status Data Format
 
 These are the fields of the context status and it's constrains:
 
@@ -54,7 +54,7 @@ These are the fields of the context status and it's constrains:
 
 API to Manage Thing Status on Lorien. Used to create, update, read and delete Context Status.
 
-## Phase Product Data Format
+## Thing Status Data Format
 
 These are the fields of the Thing Status and it's constrains:
 
