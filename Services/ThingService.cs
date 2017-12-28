@@ -21,6 +21,28 @@ namespace statusservice.Services
         {
             _configuration = configuration;
         }
+
+        public async Task<(List<Thing>, HttpStatusCode)> getChildrenThingList(int thingId)
+        {
+            List<Thing> returnThings = null;
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var builder = new UriBuilder(_configuration["thingServiceEndpoint"] + "/api/things/childrenthings/" + thingId);
+            string url = builder.ToString();
+            var result = await client.GetAsync(url);
+            switch (result.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                    returnThings = JsonConvert.DeserializeObject<List<Thing>>(await client.GetStringAsync(url));
+                    return (returnThings, HttpStatusCode.OK);
+                case HttpStatusCode.NotFound:
+                    return (returnThings, HttpStatusCode.NotFound);
+                case HttpStatusCode.InternalServerError:
+                    return (returnThings, HttpStatusCode.InternalServerError);
+            }
+            return (returnThings, HttpStatusCode.NotFound);
+        }
+
         public async Task<(Thing, HttpStatusCode)> getThing(int thingId)
         {
             Thing returnThing = null;

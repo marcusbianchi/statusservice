@@ -9,5 +9,7 @@ namespace statusservice.Services.Interfaces
     {
         Task<(Thing, HttpStatusCode)> getThing(int thingId);
         Task<(List<Thing>, HttpStatusCode)> getThingList(int[] thingId);
+        Task<(List<Thing>, HttpStatusCode)> getChildrenThingList(int thingId);
+
     }
 }

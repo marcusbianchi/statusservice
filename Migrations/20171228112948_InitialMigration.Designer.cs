@@ -11,8 +11,8 @@ using System;
 namespace statusservice.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171221133053_CreatedHistoryDB")]
-    partial class CreatedHistoryDB
+    [Migration("20171228112948_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,55 +21,58 @@ namespace statusservice.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
-            modelBuilder.Entity("statusservice.Model.Status", b =>
+            modelBuilder.Entity("statusservice.Model.ContextStatus", b =>
                 {
-                    b.Property<int>("statusId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("thingId");
-
-                    b.HasKey("statusId");
-
-                    b.ToTable("Status");
-                });
-
-            modelBuilder.Entity("statusservice.Model.StatusDescription", b =>
-                {
-                    b.Property<int>("statusDescriptionId")
+                    b.Property<int>("contextStatusId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("context")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("description")
+                    b.Property<string>("contextDescription")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("statusId");
+                    b.Property<long>("endTimestampTicks");
+
+                    b.Property<long>("startTimestampTicks");
 
                     b.Property<string>("statusName")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<long>("timestampTicks");
+                    b.Property<int?>("thingStatusId");
 
                     b.Property<string>("value")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.HasKey("statusDescriptionId");
+                    b.HasKey("contextStatusId");
 
-                    b.HasIndex("statusId");
+                    b.HasIndex("thingStatusId");
 
-                    b.ToTable("StatusDescriptions");
+                    b.ToTable("ContextStatus");
                 });
 
-            modelBuilder.Entity("statusservice.Model.StatusDescription", b =>
+            modelBuilder.Entity("statusservice.Model.ThingStatus", b =>
                 {
-                    b.HasOne("statusservice.Model.Status")
-                        .WithMany("statusDescrptions")
-                        .HasForeignKey("statusId");
+                    b.Property<int>("thingStatusId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("thingId")
+                        .IsRequired();
+
+                    b.HasKey("thingStatusId");
+
+                    b.ToTable("ThingStatus");
+                });
+
+            modelBuilder.Entity("statusservice.Model.ContextStatus", b =>
+                {
+                    b.HasOne("statusservice.Model.ThingStatus")
+                        .WithMany("statusContexts")
+                        .HasForeignKey("thingStatusId");
                 });
 #pragma warning restore 612, 618
         }

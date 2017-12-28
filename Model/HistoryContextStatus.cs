@@ -1,25 +1,26 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace statusservice.Model
 {
-    public class StatusDescription
+    public class HistoryContextStatus
     {
-        public int statusDescriptionId { get; set; }
+        [JsonIgnore]
+        public int HistoryContextStatusId { get; set; }
         [Required]
         [MaxLength(50)]
         public string context { get; set; }
         [Required]
         [MaxLength(50)]
-        public string description { get; set; }
+        public string contextDescription { get; set; }
         [Required]
         [MaxLength(50)]
         public string statusName { get; set; }
         [Required]
         [MaxLength(50)]
         public string value { get; set; }
-        [Required]
-        public long timestampTicks { get; set; }
-
+        public long startTimestampTicks { get; set; }
+        public long endTimestampTicks { get; set; }
     }
 }

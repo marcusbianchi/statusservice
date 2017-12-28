@@ -5,9 +5,10 @@ namespace statusservice.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Status> ActiveStatus { get; set; }
-        public DbSet<StatusDescription> StatusDescriptions { get; set; }
-        public DbSet<Status> HistoryStatus { get; set; }
+        public DbSet<ThingStatus> ActiveThingStatus { get; set; }
+        public DbSet<ContextStatus> ContextStatus { get; set; }
+        public DbSet<HistoryContextStatus> HistoryContextStatus { get; set; }
+        public DbSet<HistoryThingStatus> HistoryThingStatus { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
