@@ -39,6 +39,7 @@ namespace statusservice
                 options.UseNpgsql(Configuration.GetConnectionString("StatusDb")));
             services.AddSingleton<IThingService, ThingService>();
             services.AddTransient<IThingStatusService, ThingStatusService>();
+            services.AddTransient<IContextStatusService, ContextStatusService>();
             services.AddResponseCaching();
             services.AddMvc((options) =>
             {

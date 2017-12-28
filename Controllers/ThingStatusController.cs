@@ -30,7 +30,7 @@ namespace statusservice.Controllers
         [HttpGet("history/{thingId}")]
         public async Task<IActionResult> GetHistoryList(int thingId)
         {
-            var thingStatus = await _thingStatusService.getHistoryStatus(thingId, null, null);
+            var thingStatus = await _thingStatusService.getHistoryStatus(thingId);
             return Ok(thingStatus);
         }
 

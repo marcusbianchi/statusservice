@@ -21,6 +21,5 @@ namespace statusservice.Model
         [MaxLength(50)]
         public string value { get; set; }
         public long startTimestampTicks { get; set; }
-        public long endTimestampTicks { get; set; }
     }
 }

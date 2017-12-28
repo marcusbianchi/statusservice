@@ -11,6 +11,6 @@ namespace statusservice.Services.Interfaces
         Task<ThingStatus> getCurrentStatus(int thingId);
         Task<List<ThingStatus>> updateCurrentStatus(int thingId, ThingStatus newStatus, bool recurrent = false);
         Task saveHistoryStatus(int thingId);
-        Task<List<HistoryThingStatus>> getHistoryStatus(int thingId, long? initTimestamp, long? endTimestamp);
+        Task<List<HistoryThingStatus>> getHistoryStatus(int thingId);
     }
 }

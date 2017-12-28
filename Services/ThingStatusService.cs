@@ -13,6 +13,7 @@ namespace statusservice.Services
 {
     public class ThingStatusService : IThingStatusService
     {
+
         private readonly ApplicationDbContext _context;
         private readonly IThingService _thingService;
         public ThingStatusService(ApplicationDbContext context, IThingService thingService)
@@ -34,7 +35,7 @@ namespace statusservice.Services
 
         }
 
-        public async Task<List<HistoryThingStatus>> getHistoryStatus(int thingId, long? initTimestamp, long? endTimestamp)
+        public async Task<List<HistoryThingStatus>> getHistoryStatus(int thingId)
         {
             var status = await _context.HistoryThingStatus
                 .Where(x => x.thingId == thingId)
@@ -112,7 +113,7 @@ namespace statusservice.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ThingStatus> updateThingCurrentStatus(int thingId, string newStatusString)
+        private async Task<ThingStatus> updateThingCurrentStatus(int thingId, string newStatusString)
         {
             var newStatus = JsonConvert.DeserializeObject<ThingStatus>(newStatusString);
             newStatus.thingStatusId = 0;
@@ -121,6 +122,7 @@ namespace statusservice.Services
             {
                 item.startTimestampTicks = DateTime.Now.Ticks;
                 item.contextStatusId = 0;
+                item.context = item.context.ToLower().Replace(" ", string.Empty);
             }
 
             var thing = _thingService.getThing(thingId);
