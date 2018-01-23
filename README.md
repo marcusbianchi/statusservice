@@ -83,6 +83,10 @@ These are the fields of the Thing Status and it's constrains:
 
 # URLs
 
+* api/thingstatus/
+
+  * Get: Return Last Status of All Things
+
 * api/thingstatus/{thingId}?{recurrent=false}
 
   * Get: Return Last state of that thing
